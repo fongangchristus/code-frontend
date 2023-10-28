@@ -1,0 +1,32 @@
+name: Integration continue
+on: [push]
+jobs:
+  compilling-app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/code-frontend
+        name: Check out repository code          
+      - run: ./mvnw clean compile 
+
+  test-unit:
+    runs-on: ubuntu-latest 
+    steps:
+      - uses: actions/code-frontend
+        name: Check out repository code
+
+      - run: ./mvnw testtest-unit
+  
+  test-integrations:      
+     runs-on: ubuntu-latest 
+     steps:
+        - uses: actions/code-frontend
+          name: Check out repository code
+        - run: ./mvnw clean verify
+
+  build-artefact:
+    runs-on: ubuntu-latest
+    
+
+
+      
+  

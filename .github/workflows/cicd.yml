@@ -12,7 +12,8 @@ jobs:
     steps:
     - name: Checkout du code source
       uses: actions/checkout@v2
-
+    - name: Autoriser l'exécution du fichier mvnw
+      run: chmod +x ./mvnw  # Accorde les permissions d'exécution au fichier mvnw
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
@@ -27,7 +28,9 @@ jobs:
     steps:
     - name: Checkout du code source
       uses: actions/checkout@v2
-
+    - name: Autoriser l'exécution du fichier mvnw
+      run: chmod +x ./mvnw  # Accorde les permissions d'exécution au fichier mvnw
+      
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
@@ -42,7 +45,9 @@ jobs:
     steps:
     - name: Checkout du code source
       uses: actions/checkout@v2
-
+    - name: Autoriser l'exécution du fichier mvnw
+      run: chmod +x ./mvnw  # Accorde les permissions d'exécution au fichier mvnw 
+      
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
@@ -58,7 +63,9 @@ jobs:
     steps:
     - name: Checkout du code source
       uses: actions/checkout@v2
-
+    - name: Autoriser l'exécution du fichier mvnw
+      run: chmod +x ./mvnw  # Accorde les permissions d'exécution au fichier mvnw
+      
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:

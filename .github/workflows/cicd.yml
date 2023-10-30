@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-
+        distribution: 'adopt'
     - name: Compilation avec Maven
       run: mvn clean compile
 
@@ -32,7 +32,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-
+        distribution: 'adopt'
     - name: Exécution des tests unitaires
       run: ./mvnw test
   
@@ -47,7 +47,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-
+        distribution: 'adopt'
     - name: Exécution des tests d'intégration
       run: ./mvnw clean verify
       
@@ -63,7 +63,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
-
+        distribution: 'adopt'
     - name: Build de l'artefact Quarkus
       run: mvn clean package -Dquarkus.package.type=uber-jar
 

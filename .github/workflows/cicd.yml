@@ -64,13 +64,10 @@ jobs:
         java-version: '17'
         distribution: 'adopt'
     - name: Build de l'artefact Quarkus
-      run: mvn clean package -Dquarkus.package.type=uber-jar
-
-    - name: Déplace le package dans le répertoire cible
-      run: mv target/quarkus-app/* target/
+      run: mvn clean package
 
     - name: Affiche les fichiers générés
-      run: ls target/
+      run: ls target/quarkus-app/
     
     
 

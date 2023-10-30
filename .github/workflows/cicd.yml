@@ -6,39 +6,72 @@ on:
       branches: [develop]    
 jobs:
   compilling-app:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Compilation avec Maven
+      run: mvn clean compile
+
+      
+  Tests-unitaires:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        name: Check out repository code          
-      - run: ./mvnw clean compile 
+    - name: Checkout du code source
+      uses: actions/checkout@v2
 
-  test-unit:
-    runs-on: ubuntu-latest 
-    steps:
-      - uses: actions/checkout@v2
-        name: Check out repository code
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
 
-      - run: ./mvnw testtest-unit
+    - name: Exécution des tests unitaires
+      run: ./mvnw test
   
   test-integrations:      
-     runs-on: ubuntu-latest 
-     steps:
-        - uses: actions/checkout@v2
-          name: Check out repository code
-        - run: ./mvnw clean verify
-
-  build-artefact:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-        name: Set up JDK 3.2
-      - uses: actions/setup-java@v1
-        with: 
-          java-version: '3.2'
-          distribution: 'adopt'
-          cache: Maven
-      - name: build with Maven    
-        run: ./mvnw clean verify
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Exécution des tests d'intégration
+      run: ./mvnw clean verify
+      
+  build-artefact:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build de l'artefact Quarkus
+      run: mvn clean package -Dquarkus.package.type=uber-jar
+
+    - name: Déplace le package dans le répertoire cible
+      run: mv target/quarkus-app/* target/
+
+    - name: Affiche les fichiers générés
+      run: ls target/
     
     
 

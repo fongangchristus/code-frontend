@@ -1,32 +1,74 @@
 name: Integration continue
-on: [push]
+on: 
+  push:
+      branches: 
+        -feature*
+  pull_request:
+      branches:
+         -develop      
+    
 jobs:
   compilling-app:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/code-frontend
-        name: Check out repository code          
-      - run: ./mvnw clean compile 
-
-  test-unit:
-    runs-on: ubuntu-latest 
-    steps:
-      - uses: actions/code-frontend
-        name: Check out repository code
-
-      - run: ./mvnw testtest-unit
   
-  test-integrations:      
-     runs-on: ubuntu-latest 
-     steps:
-        - uses: actions/code-frontend
-          name: Check out repository code
-        - run: ./mvnw clean verify
-
-  build-artefact:
     runs-on: ubuntu-latest
-    
 
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Compilation avec Maven
+      run: mvn clean compile
 
       
+  Tests-unitaires:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Exécution des tests unitaires
+      run: mvn test
   
+  test-integrations:      
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Exécution des tests d'intégration
+      run: mvn clean verify
+      
+  build-artefact:
+  
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Build de l'artefact Quarkus
+      run: mvn clean package
+
+    - name: Affiche les fichiers générés
+      run: ls target/quarkus-app/
+    

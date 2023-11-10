@@ -1,9 +1,13 @@
 name: Integration continue
 on: 
   push:
-      branches: [develop]
+      branches: 
+        - develop
+        - 'feature-**'
   pull_request:
-      branches: [develop]    
+      branches: 
+        - develop
+       
 jobs:
   compilling-app:
   
@@ -22,6 +26,7 @@ jobs:
 
       
   Tests-unitaires:
+    needs: compilling-app
     runs-on: ubuntu-latest
     steps:
     - name: Checkout du code source
@@ -35,7 +40,8 @@ jobs:
     - name: Exécution des tests unitaires
       run: mvn test
   
-  test-integrations:      
+  test-integrations:
+    needs: Tests-unitaires      
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +57,7 @@ jobs:
       run: mvn clean verify
       
   build-artefact:
-  
+    needs: test-integrations 
     runs-on: ubuntu-latest
 
     steps:

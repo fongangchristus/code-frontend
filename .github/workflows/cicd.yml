@@ -7,7 +7,8 @@ on:
   pull_request:
       branches: 
         - develop
-       
+permissions:
+    contents: write     
 jobs:
   compilling-app:
   
@@ -75,7 +76,26 @@ jobs:
     - name: Affiche les fichiers générés
       run: ls target/quarkus-app/
     
-    
+  deploy:
+    needs: test-integrations 
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code source
+      uses: actions/checkout@v2
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+    - name: Build de l'artefact Quarkus
+      run: mvn clean package
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4       
+      with:
+        folder: build
+        branch: gh-mavenruth
 
 
       

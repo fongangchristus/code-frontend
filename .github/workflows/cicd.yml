@@ -1,12 +1,9 @@
 name: Integration continue
 on: 
   push:
-      branches: 
-        -feature*
+      branches: [develop]
   pull_request:
-      branches:
-         -develop      
-    
+      branches: [develop]    
 jobs:
   compilling-app:
   
@@ -72,3 +69,8 @@ jobs:
     - name: Affiche les fichiers générés
       run: ls target/quarkus-app/
     
+    
+
+
+      
+  
